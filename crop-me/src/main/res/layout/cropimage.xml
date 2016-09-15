@@ -1,0 +1,69 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal">
+
+    <view
+        android:id="@+id/image"
+        class="com.mikelau.croperino.CropImageView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_x="0dip"
+        android:layout_y="0dip"
+        android:background="@color/green_variant" />
+
+    <RelativeLayout
+        android:id="@+id/rl_main"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@color/dark_green"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip">
+
+        <Button
+            android:id="@+id/discard"
+            style="@style/CustomBtn"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:text="@string/cancel"
+            android:textAllCaps="true" />
+
+        <ImageView
+            android:id="@+id/rotateLeft"
+            style="@style/CustomBtn"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@+id/discard"
+            android:layout_toRightOf="@+id/discard"
+            android:padding="15dp"
+            android:src="@drawable/ic_rotate_left" />
+
+        <ImageView
+            android:id="@+id/rotateRight"
+            style="@style/CustomBtn"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@+id/rotateLeft"
+            android:layout_toRightOf="@+id/rotateLeft"
+            android:padding="15dp"
+            android:src="@drawable/ic_rotate_right" />
+
+        <Button
+            android:id="@+id/save"
+            style="@style/CustomBtn"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@+id/rotateRight"
+            android:layout_toRightOf="@+id/rotateRight"
+            android:text="@string/save"
+            android:textAllCaps="true" />
+
+    </RelativeLayout>
+</RelativeLayout>
