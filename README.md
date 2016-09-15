@@ -10,6 +10,7 @@ Features:
 * Customizing button and background
 * Performance and compression improvments
 
+
 ![device-2016-09-15-163009](https://cloud.githubusercontent.com/assets/16832215/18544278/855d9aae-7b66-11e6-8236-ba1bc89a8e44.png)
 
 Gradle
@@ -21,7 +22,7 @@ Gradle
 ```
 
 ```java
-	compile 'com.github.ekimual:croperino:1.0.0'
+	compile 'com.github.ekimual:croperino:1.0.1'
 ```
 Sample Usage
 
@@ -32,7 +33,7 @@ Sample Usage
         CroperinoFileUtil.setupDirectory(MainActivity.this);
 
 	//Prepare Chooser (Gallery or Camera)
-	 Croperino.prepareChooser(MainActivity.this, "Capture photo...", ContextCompat.getColor(MainActivity.this, android.R.color.background_dark));
+	Croperino.prepareChooser(MainActivity.this, "Capture photo...", ContextCompat.getColor(MainActivity.this, android.R.color.background_dark));
 	 
 	//Prepare Camera
 	try {
