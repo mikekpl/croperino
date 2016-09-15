@@ -59,7 +59,7 @@ onActivityResult
         switch (requestCode) {
             case CroperinoConfig.REQUEST_TAKE_PHOTO:
                 if (resultCode == Activity.RESULT_OK) {
-                    //Parameters of runCropImage File, Activity context, isScalable, aspectX, aspectY, button bar color, bg color
+                    /* Parameters of runCropImage = File, Activity Context, Image is Scalable or Not, Aspect Ratio X, Aspect Ratio Y, Button Bar Color, Background Color */
                     Croperino.runCropImage(CroperinoFileUtil.getmFileTemp(), MainActivity.this, true, 1, 1, 0, 0);
                 }
                 break;
@@ -74,6 +74,7 @@ onActivityResult
                     Uri i = Uri.fromFile(CroperinoFileUtil.getmFileTemp());
                     ivMain.setImageURI(i);
                     //Do saving / uploading of photo method here.
+                    //The image file can always be retrieved via CroperinoFileUtil.getmFileTemp()
                 }
                 break;
             default:
