@@ -24,6 +24,16 @@ Gradle
 ```java
 	compile 'com.github.ekimual:croperino:1.0.1'
 ```
+
+Make sure to have this in your manifest
+
+```java
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+```
 Sample Usage
 
 ```java
