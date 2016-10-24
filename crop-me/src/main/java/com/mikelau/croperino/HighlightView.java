@@ -25,6 +25,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Region;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 
 public class HighlightView {
@@ -43,10 +44,9 @@ public class HighlightView {
     }
 
     private void init() {
-        android.content.res.Resources resources = mContext.getResources();
-        mResizeDrawableWidth = resources.getDrawable(R.drawable.camera_crop_width);
-        mResizeDrawableHeight = resources.getDrawable(R.drawable.camera_crop_height);
-        mResizeDrawableDiagonal = resources.getDrawable(R.drawable.indicator_autocrop);
+        mResizeDrawableWidth = ContextCompat.getDrawable(mContext.getContext(), R.drawable.camera_crop_width);
+        mResizeDrawableHeight = ContextCompat.getDrawable(mContext.getContext(),R.drawable.camera_crop_height);
+        mResizeDrawableDiagonal = ContextCompat.getDrawable(mContext.getContext(),R.drawable.indicator_autocrop);
     }
 
     boolean mIsFocused;

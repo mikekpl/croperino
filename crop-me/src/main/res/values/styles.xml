@@ -13,7 +13,7 @@
         <item name="android:padding">10dip</item>
     </style>
 
-    <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Dialog">
+    <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">@color/dark_green</item>
         <item name="android:textColorPrimary">@color/gray_variant</item>
         <item name="android:background">@color/white</item>
