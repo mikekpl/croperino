@@ -8,6 +8,8 @@ import android.hardware.camera2.CameraAccessException;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
+import android.util.Log;
 
 import com.mikelau.magictoast.MagicToast;
 
@@ -18,6 +20,8 @@ import java.io.IOException;
  * Created by Mike on 9/15/2016.
  */
 public class Croperino {
+    private static String TAG = Croperino.class.getSimpleName();
+
     public static void runCropImage(File file, Activity ctx, boolean isScalable, int aspectX, int aspectY, int color, int bgColor) {
         Intent intent = new Intent(ctx, CropImage.class);
         intent.putExtra(CropImage.IMAGE_PATH, file.getPath());
@@ -40,24 +44,16 @@ public class Croperino {
                 new AlertInterface.WithNeutral() {
                     @Override
                     public void PositiveMethod(final DialogInterface dialog, final int id) {
-                        try {
+                        if (CroperinoFileUtil.verifyCameraPermissions(ctx)) {
                             prepareCamera(ctx);
-                        } catch (Exception e) {
-                            if(e instanceof ActivityNotFoundException) {
-                                MagicToast.showError(ctx, "Activity not found.");
-                            } else if(e instanceof IOException) {
-                                MagicToast.showError(ctx, "Image file captured not found.");
-                            } else if(e instanceof CameraAccessException) {
-                                MagicToast.showError(ctx, "Camera access was denied.");
-                            } else {
-                                MagicToast.showError(ctx, "Cannot capture image, Phone storage memory full.");
-                            }
                         }
                     }
 
                     @Override
                     public void NeutralMethod(final DialogInterface dialog, final int id) {
-                        prepareGallery(ctx);
+                        if (CroperinoFileUtil.verifyStoragePermissions(ctx)) {
+                            prepareGallery(ctx);
+                        }
                     }
 
                     @Override
@@ -67,18 +63,33 @@ public class Croperino {
                 });
     }
 
-    public static void prepareCamera(Activity ctx) throws Exception {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        Uri mImageCaptureUri = null;
-        String state = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(state)) {
-            mImageCaptureUri = Uri.fromFile(CroperinoFileUtil.newCameraFile());
-        } else {
-            mImageCaptureUri = InternalStorageContentProvider.CONTENT_URI;
+    public static void prepareCamera(Activity ctx) {
+        try {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            Uri mImageCaptureUri = null;
+            String state = Environment.getExternalStorageState();
+            if (Environment.MEDIA_MOUNTED.equals(state)) {
+                mImageCaptureUri = FileProvider.getUriForFile(ctx,
+                        ctx.getApplicationContext().getPackageName() + ".provider",
+                        CroperinoFileUtil.newCameraFile());
+            } else {
+                mImageCaptureUri = InternalStorageContentProvider.CONTENT_URI;
+            }
+            intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, mImageCaptureUri);
+            intent.putExtra("return-data", true);
+            ctx.startActivityForResult(intent, CroperinoConfig.REQUEST_TAKE_PHOTO);
+        } catch (Exception e) {
+            if(e instanceof ActivityNotFoundException) {
+                MagicToast.showError(ctx, "Activity not found.");
+            } else if(e instanceof IOException) {
+                MagicToast.showError(ctx, "Image file captured not found.");
+            } else if(e instanceof CameraAccessException) {
+                MagicToast.showError(ctx, "Camera access was denied.");
+            } else {
+                MagicToast.showError(ctx, "Cannot capture image, Phone storage memory full.");
+            }
+            Log.e(TAG, "Failed to prepare camera: ", e);
         }
-        intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, mImageCaptureUri);
-        intent.putExtra("return-data", true);
-        ctx.startActivityForResult(intent, CroperinoConfig.REQUEST_TAKE_PHOTO);
     }
 
     public static void prepareGallery(Activity ctx) {

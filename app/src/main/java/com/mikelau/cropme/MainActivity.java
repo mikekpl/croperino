@@ -1,11 +1,14 @@
 package com.mikelau.cropme;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -28,15 +31,24 @@ public class MainActivity extends AppCompatActivity {
         ivMain = (ImageView) findViewById(R.id.iv_main);
 
         new CroperinoConfig("IMG_" + System.currentTimeMillis() + ".jpg", "/MikeLau/Pictures", "/sdcard/MikeLau/Pictures");
-        CroperinoFileUtil.verifyStoragePermissions(MainActivity.this);
         CroperinoFileUtil.setupDirectory(MainActivity.this);
 
         btnSummon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Croperino.prepareChooser(MainActivity.this, "Capture photo...", ContextCompat.getColor(MainActivity.this, android.R.color.background_dark));
+                if (CroperinoFileUtil.verifyStoragePermissions(MainActivity.this)) {
+                    prepareChooser();
+                }
             }
         });
+    }
+
+    private void prepareChooser() {
+        Croperino.prepareChooser(MainActivity.this, "Capture photo...", ContextCompat.getColor(MainActivity.this, android.R.color.background_dark));
+    }
+
+    private void prepareCamera() {
+        Croperino.prepareCamera(MainActivity.this);
     }
 
     @Override
@@ -64,6 +76,47 @@ public class MainActivity extends AppCompatActivity {
                 break;
             default:
                 break;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == CroperinoFileUtil.REQUEST_CAMERA) {
+            for (int i = 0; i < permissions.length; i++) {
+                String permission = permissions[i];
+                int grantResult = grantResults[i];
+
+                if (permission.equals(Manifest.permission.CAMERA)) {
+                    if (grantResult == PackageManager.PERMISSION_GRANTED) {
+                        prepareCamera();
+                    }
+                }
+            }
+        } else if (requestCode == CroperinoFileUtil.REQUEST_EXTERNAL_STORAGE) {
+            boolean wasReadGranted = false;
+            boolean wasWriteGranted = false;
+
+            for (int i = 0; i < permissions.length; i++) {
+                String permission = permissions[i];
+                int grantResult = grantResults[i];
+
+                if (permission.equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                    if (grantResult == PackageManager.PERMISSION_GRANTED) {
+                        wasReadGranted = true;
+                    }
+                }
+                if (permission.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    if (grantResult == PackageManager.PERMISSION_GRANTED) {
+                        wasWriteGranted = true;
+                    }
+                }
+            }
+
+            if (wasReadGranted && wasWriteGranted) {
+                prepareChooser();
+            }
         }
     }
 }
