@@ -3,12 +3,14 @@ Croperino
 
 Simple image cropping tool derived from [Crop Image](https://github.com/biokys/cropimage)
 
+Credits to [Alexey](https://github.com/tpom6oh) for fixing some issues related to API 23+ (Since I do not have 23+ devices yet)
+
 Features:
-* Camera or Gallery calls.
-* Facial Recoginition
+* Camera and/or gallery calls.
+* Face recoginition
 * Cropping of Image based on Scale (Aspect Ratio)
 * Customizing button and background
-* Performance and compression improvments
+* Performance and compression improvements
 
 
 ![device-2016-09-15-163009](https://cloud.githubusercontent.com/assets/16832215/18544278/855d9aae-7b66-11e6-8236-ba1bc89a8e44.png)
@@ -22,7 +24,7 @@ Gradle
 ```
 
 ```java
-	compile 'com.github.ekimual:croperino:1.0.2'
+	compile 'com.github.ekimual:croperino:1.0.3'
 ```
 
 Make sure to have this in your manifest
@@ -93,3 +95,30 @@ onActivityResult
 ```
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Croperino-green.svg?style=true)](https://android-arsenal.com/details/1/4374)
+
+License
+=======
+
+```
+The MIT License (MIT)
+
+Copyright (c) 2016 Mike Lau
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+```

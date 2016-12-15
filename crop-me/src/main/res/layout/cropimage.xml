@@ -25,19 +25,17 @@
         android:paddingLeft="10dip"
         android:paddingRight="10dip">
 
-        <Button
+        <ImageView
             android:id="@+id/discard"
-            style="@style/CustomBtn"
-            android:layout_width="80dp"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:text="@string/cancel"
-            android:textAllCaps="true" />
+            android:padding="10dp"
+            android:src="@drawable/ic_close" />
 
         <ImageView
             android:id="@+id/rotateLeft"
-            style="@style/CustomBtn"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_toEndOf="@+id/discard"
@@ -47,7 +45,6 @@
 
         <ImageView
             android:id="@+id/rotateRight"
-            style="@style/CustomBtn"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_toEndOf="@+id/rotateLeft"
@@ -55,15 +52,14 @@
             android:padding="15dp"
             android:src="@drawable/ic_rotate_right" />
 
-        <Button
+        <ImageView
             android:id="@+id/save"
-            style="@style/CustomBtn"
-            android:layout_width="80dp"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_toEndOf="@+id/rotateRight"
             android:layout_toRightOf="@+id/rotateRight"
-            android:text="@string/save"
-            android:textAllCaps="true" />
+            android:padding="10dp"
+            android:src="@drawable/ic_check" />
 
     </RelativeLayout>
 </RelativeLayout>

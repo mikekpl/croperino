@@ -5,14 +5,6 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="CustomBtn" parent="@android:style/Widget.Button">
-        <item name="android:textSize">15sp</item>
-        <item name="android:textColor">#FFFFFF</item>
-        <item name="android:gravity">center</item>
-        <item name="android:background">@drawable/btn_custom</item>
-        <item name="android:padding">10dip</item>
-    </style>
-
     <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">@color/dark_green</item>
         <item name="android:textColorPrimary">@color/gray_variant</item>
