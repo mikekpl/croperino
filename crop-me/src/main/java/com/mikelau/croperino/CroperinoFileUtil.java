@@ -15,6 +15,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by Mike on 9/15/2016.
@@ -22,6 +23,7 @@ import java.io.File;
 public class CroperinoFileUtil {
 
     public static final int REQUEST_EXTERNAL_STORAGE = 1;
+    public static final int REQUEST_CAMERA = 2;
     public static String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -46,8 +48,9 @@ public class CroperinoFileUtil {
         }
     }
 
-    public static File newCameraFile() {
-        mFileTemp = new File(Environment.getExternalStorageDirectory() + CroperinoConfig.getsDirectory(), CroperinoConfig.getsImageName());
+    public static File newCameraFile() throws IOException {
+        File storageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "Camera");
+        mFileTemp = File.createTempFile(CroperinoConfig.getsImageName(), ".jpg", storageDir);
         return mFileTemp;
     }
 
@@ -56,7 +59,7 @@ public class CroperinoFileUtil {
         return mFileTemp;
     }
 
-    public static void verifyStoragePermissions(Activity activity) {
+    public static Boolean verifyStoragePermissions(Activity activity) {
         int writePermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         int readPermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE);
 
@@ -66,6 +69,24 @@ public class CroperinoFileUtil {
                     PERMISSIONS_STORAGE,
                     REQUEST_EXTERNAL_STORAGE
             );
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public static Boolean verifyCameraPermissions(Activity activity) {
+        int cameraPermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.CAMERA);
+
+        if (cameraPermission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    activity,
+                    new String[] {(Manifest.permission.CAMERA)},
+                    REQUEST_CAMERA
+            );
+            return false;
+        } else {
+            return true;
         }
     }
 
