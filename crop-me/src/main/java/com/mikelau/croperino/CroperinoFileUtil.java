@@ -37,7 +37,8 @@ public class CroperinoFileUtil {
     public static void setupDirectory(Context ctx) {
         String state = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(state)) {
-            mFileTemp = new File(Environment.getExternalStorageDirectory() + CroperinoConfig.getsDirectory(), CroperinoConfig.getsImageName());
+            mFileTemp = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + CroperinoConfig.getsDirectory(),
+                    CroperinoConfig.getsImageName());
         } else {
             mFileTemp = new File(ctx.getFilesDir(), CroperinoConfig.getsImageName());
         }
