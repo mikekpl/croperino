@@ -66,7 +66,7 @@ public class Croperino {
     public static void prepareCamera(Activity ctx) {
         try {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            Uri mImageCaptureUri = null;
+            Uri mImageCaptureUri;
             String state = Environment.getExternalStorageState();
             if (Environment.MEDIA_MOUNTED.equals(state)) {
                 if (Uri.fromFile(CroperinoFileUtil.newCameraFile()) != null && !Uri.EMPTY.equals(CroperinoFileUtil.newCameraFile())) {
