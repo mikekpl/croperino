@@ -30,6 +30,7 @@ public class CroperinoFileUtil {
     };
 
     private static File mFileTemp;
+
     public static File getmFileTemp() {
         return mFileTemp;
     }
@@ -37,7 +38,7 @@ public class CroperinoFileUtil {
     public static void setupDirectory(Context ctx) {
         String state = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(state)) {
-            if(Environment.getExternalStorageDirectory().exists()) {
+            if (Environment.getExternalStorageDirectory().exists()) {
                 mFileTemp = new File(Environment.getExternalStorageDirectory() + CroperinoConfig.getsDirectory(), CroperinoConfig.getsImageName());
             } else {
                 mFileTemp = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + CroperinoConfig.getsDirectory(), CroperinoConfig.getsImageName());
@@ -64,31 +65,39 @@ public class CroperinoFileUtil {
     }
 
     public static Boolean verifyStoragePermissions(Activity activity) {
-        int writePermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        int readPermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE);
+        if (Build.VERSION.SDK_INT >= 23) {
+            int writePermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            int readPermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE);
 
-        if (writePermission != PackageManager.PERMISSION_GRANTED || readPermission != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(
-                    activity,
-                    PERMISSIONS_STORAGE,
-                    REQUEST_EXTERNAL_STORAGE
-            );
-            return false;
+            if (writePermission != PackageManager.PERMISSION_GRANTED || readPermission != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(
+                        activity,
+                        PERMISSIONS_STORAGE,
+                        REQUEST_EXTERNAL_STORAGE
+                );
+                return false;
+            } else {
+                return true;
+            }
         } else {
             return true;
         }
     }
 
     public static Boolean verifyCameraPermissions(Activity activity) {
-        int cameraPermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.CAMERA);
+        if (Build.VERSION.SDK_INT >= 23) {
+            int cameraPermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.CAMERA);
 
-        if (cameraPermission != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(
-                    activity,
-                    new String[] {(Manifest.permission.CAMERA)},
-                    REQUEST_CAMERA
-            );
-            return false;
+            if (cameraPermission != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(
+                        activity,
+                        new String[]{(Manifest.permission.CAMERA)},
+                        REQUEST_CAMERA
+                );
+                return false;
+            } else {
+                return true;
+            }
         } else {
             return true;
         }
@@ -111,17 +120,13 @@ public class CroperinoFileUtil {
                     }
 
                     // TODO handle non-primary volumes
-                }
-
-                else if (isDownloadsDocument(uri)) {
+                } else if (isDownloadsDocument(uri)) {
                     final String id = DocumentsContract.getDocumentId(uri);
                     final Uri contentUri = ContentUris.withAppendedId(
                             Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
 
                     return getDataColumn(context, contentUri, null, null);
-                }
-
-                else if (isMediaDocument(uri)) {
+                } else if (isMediaDocument(uri)) {
                     final String docId = DocumentsContract.getDocumentId(uri);
                     final String[] split = docId.split(":");
                     final String type = split[0];
@@ -136,21 +141,17 @@ public class CroperinoFileUtil {
                     }
 
                     final String selection = "_id=?";
-                    final String[] selectionArgs = new String[] {
+                    final String[] selectionArgs = new String[]{
                             split[1]
                     };
 
                     return getDataColumn(context, contentUri, selection, selectionArgs);
                 }
-            }
-
-            else if ("content".equalsIgnoreCase(uri.getScheme())) {
+            } else if ("content".equalsIgnoreCase(uri.getScheme())) {
                 if (isGooglePhotosUri(uri))
                     return uri.getLastPathSegment();
                 return getDataColumn(context, uri, null, null);
-            }
-
-            else if ("file".equalsIgnoreCase(uri.getScheme())) {
+            } else if ("file".equalsIgnoreCase(uri.getScheme())) {
                 return uri.getPath();
             }
         }

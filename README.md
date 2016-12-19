@@ -24,7 +24,7 @@ Gradle
 ```
 
 ```java
-	compile 'com.github.ekimual:croperino:1.0.5'
+	compile 'com.github.ekimual:croperino:1.0.6'
 ```
 
 Make sure to have this in your manifest

@@ -69,9 +69,13 @@ public class Croperino {
             Uri mImageCaptureUri = null;
             String state = Environment.getExternalStorageState();
             if (Environment.MEDIA_MOUNTED.equals(state)) {
-                mImageCaptureUri = FileProvider.getUriForFile(ctx,
-                        ctx.getApplicationContext().getPackageName() + ".provider",
-                        CroperinoFileUtil.newCameraFile());
+                if (Uri.fromFile(CroperinoFileUtil.newCameraFile()) != null && !Uri.EMPTY.equals(CroperinoFileUtil.newCameraFile())) {
+                    mImageCaptureUri = Uri.fromFile(CroperinoFileUtil.newCameraFile());
+                } else {
+                    mImageCaptureUri = FileProvider.getUriForFile(ctx,
+                            ctx.getApplicationContext().getPackageName() + ".provider",
+                            CroperinoFileUtil.newCameraFile());
+                }
             } else {
                 mImageCaptureUri = InternalStorageContentProvider.CONTENT_URI;
             }
@@ -79,14 +83,14 @@ public class Croperino {
             intent.putExtra("return-data", true);
             ctx.startActivityForResult(intent, CroperinoConfig.REQUEST_TAKE_PHOTO);
         } catch (Exception e) {
-            if(e instanceof ActivityNotFoundException) {
+            if (e instanceof ActivityNotFoundException) {
                 MagicToast.showError(ctx, "Activity not found.");
-            } else if(e instanceof IOException) {
+            } else if (e instanceof IOException) {
                 MagicToast.showError(ctx, "Image file captured not found.");
-            } else if(e instanceof CameraAccessException) {
+            } else if (e instanceof CameraAccessException) {
                 MagicToast.showError(ctx, "Camera access was denied.");
             } else {
-                MagicToast.showError(ctx, "Cannot capture image, Phone storage memory full.");
+                MagicToast.showError(ctx, "Camera access failed.");
             }
             Log.e(TAG, "Failed to prepare camera: ", e);
         }
