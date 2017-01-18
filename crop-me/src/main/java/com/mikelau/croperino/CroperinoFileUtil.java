@@ -14,6 +14,8 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 
+import com.mikelau.magictoast.MagicToast;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -60,8 +62,14 @@ public class CroperinoFileUtil {
     }
 
     public static File newGalleryFile(Intent data, Context ctx) {
-        mFileTemp = new File(CroperinoFileUtil.getPath(ctx, data.getData()));
-        return mFileTemp;
+        try {
+            mFileTemp = new File(CroperinoFileUtil.getPath(ctx, data.getData()));
+            return mFileTemp;
+        } catch (Exception e) {
+            MagicToast.showError(ctx, "Gallery is empty or access is prohibited by device.");
+            return mFileTemp;
+        }
+
     }
 
     public static Boolean verifyStoragePermissions(Activity activity) {

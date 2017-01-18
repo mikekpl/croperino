@@ -381,7 +381,13 @@ public class CropImage extends MonitoredActivity {
                 }
             } catch (IOException ex) {
                 Log.e(TAG, "Cannot open file: " + mSaveUri, ex);
-                MagicToast.showError(CropImage.this, "Cannot access file due to app storage encyption, Please use camera or other apps to open gallery.");
+
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        MagicToast.showError(CropImage.this, "Cannot access file due to app storage encyption, Please use camera or other apps to open gallery.");
+                    }
+                });
+
                 setResult(RESULT_CANCELED);
                 finish();
                 return;
@@ -396,7 +402,11 @@ public class CropImage extends MonitoredActivity {
             intent.putExtra(ORIENTATION_IN_DEGREES, CropUtil.getOrientationInDegree(this));
             setResult(RESULT_OK, intent);
         } else {
-            MagicToast.showError(CropImage.this, "Image URL does not exist please try again.");
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    MagicToast.showError(CropImage.this, "Image URL does not exist please try again.");
+                }
+            });
         }
         croppedImage.recycle();
         finish();
