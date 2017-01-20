@@ -384,7 +384,7 @@ public class CropImage extends MonitoredActivity {
 
                 runOnUiThread(new Runnable() {
                     public void run() {
-                        MagicToast.showError(CropImage.this, "Cannot access file due to app storage encyption, Please use camera or other apps to open gallery.");
+                        MagicToast.showError(CropImage.this, "Cannot access file due to app storage encryption, Please use camera or other apps to open gallery.");
                     }
                 });
 

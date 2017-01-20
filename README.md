@@ -17,19 +17,19 @@ Features:
 
 Gradle
 
-```java
+```
 	repositories {
     	maven { url "https://jitpack.io" }
     }
 ```
 
-```java
-	compile 'com.github.ekimual:croperino:1.0.8'
+```
+	compile 'com.github.ekimual:croperino:1.0.9'
 ```
 
 Make sure to have this in your manifest
 
-```java
+```
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
@@ -38,7 +38,7 @@ Make sure to have this in your manifest
 ```
 Sample Usage
 
-```java
+```
 	//Initialize on every usage
 	new CroperinoConfig("IMG_" + System.currentTimeMillis() + ".jpg", "/MikeLau/Pictures", "/sdcard/MikeLau/Pictures");
         CroperinoFileUtil.verifyStoragePermissions(MainActivity.this);
@@ -61,7 +61,7 @@ Sample Usage
 
 onActivityResult
 
-```java
+```
 	@Override
     	public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
