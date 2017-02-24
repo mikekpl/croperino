@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
-import android.util.Log;
 
 import com.mikelau.magictoast.MagicToast;
 
@@ -20,7 +19,6 @@ import java.io.IOException;
  * Created by Mike on 9/15/2016.
  */
 public class Croperino {
-    private static String TAG = Croperino.class.getSimpleName();
 
     public static void runCropImage(File file, Activity ctx, boolean isScalable, int aspectX, int aspectY, int color, int bgColor) {
         Intent intent = new Intent(ctx, CropImage.class);
@@ -92,12 +90,12 @@ public class Croperino {
             } else {
                 MagicToast.showError(ctx, "Camera access failed.");
             }
-            Log.e(TAG, "Failed to prepare camera: ", e);
         }
     }
 
     public static void prepareGallery(Activity ctx) {
-        Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        Intent i = new Intent(Intent.ACTION_PICK);
+        i.setType("image/*");
         ctx.startActivityForResult(i, CroperinoConfig.REQUEST_PICK_FILE);
     }
 }

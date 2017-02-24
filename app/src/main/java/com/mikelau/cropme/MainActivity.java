@@ -17,6 +17,8 @@ import com.mikelau.croperino.Croperino;
 import com.mikelau.croperino.CroperinoConfig;
 import com.mikelau.croperino.CroperinoFileUtil;
 
+import java.io.File;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button btnSummon;
@@ -71,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
                 if (resultCode == Activity.RESULT_OK) {
                     Uri i = Uri.fromFile(CroperinoFileUtil.getmFileTemp());
                     ivMain.setImageURI(i);
-                    //Do saving / uploading of photo method here.
                 }
                 break;
             default:
