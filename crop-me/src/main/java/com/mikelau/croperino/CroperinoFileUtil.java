@@ -54,7 +54,10 @@ public class CroperinoFileUtil {
     }
 
     public static File newCameraFile() throws IOException {
-        File storageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "Camera");
+        File storageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Camera");
+        if(!storageDir.exists()) {
+            storageDir.mkdir();
+        }
         mFileTemp = File.createTempFile(CroperinoConfig.getsImageName(), ".jpg", storageDir);
         return mFileTemp;
     }

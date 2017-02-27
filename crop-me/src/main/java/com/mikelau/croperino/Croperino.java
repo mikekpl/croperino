@@ -67,7 +67,7 @@ public class Croperino {
             Uri mImageCaptureUri;
             String state = Environment.getExternalStorageState();
             if (Environment.MEDIA_MOUNTED.equals(state)) {
-                if (Uri.fromFile(CroperinoFileUtil.newCameraFile()) != null && !Uri.EMPTY.equals(CroperinoFileUtil.newCameraFile())) {
+                if (Uri.fromFile(CroperinoFileUtil.newCameraFile()) != null) {
                     mImageCaptureUri = Uri.fromFile(CroperinoFileUtil.newCameraFile());
                 } else {
                     mImageCaptureUri = FileProvider.getUriForFile(ctx,
