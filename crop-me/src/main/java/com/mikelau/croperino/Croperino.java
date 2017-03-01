@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.hardware.camera2.CameraAccessException;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
@@ -68,7 +68,13 @@ public class Croperino {
             String state = Environment.getExternalStorageState();
             if (Environment.MEDIA_MOUNTED.equals(state)) {
                 if (Uri.fromFile(CroperinoFileUtil.newCameraFile()) != null) {
-                    mImageCaptureUri = Uri.fromFile(CroperinoFileUtil.newCameraFile());
+                    if (Build.VERSION.SDK_INT >= 23) {
+                        mImageCaptureUri = FileProvider.getUriForFile(ctx,
+                                ctx.getApplicationContext().getPackageName() + ".provider",
+                                CroperinoFileUtil.newCameraFile());
+                    } else {
+                        mImageCaptureUri = Uri.fromFile(CroperinoFileUtil.newCameraFile());
+                    }
                 } else {
                     mImageCaptureUri = FileProvider.getUriForFile(ctx,
                             ctx.getApplicationContext().getPackageName() + ".provider",
@@ -85,8 +91,6 @@ public class Croperino {
                 MagicToast.showError(ctx, "Activity not found.");
             } else if (e instanceof IOException) {
                 MagicToast.showError(ctx, "Image file captured not found.");
-            } else if (e instanceof CameraAccessException) {
-                MagicToast.showError(ctx, "Camera access was denied.");
             } else {
                 MagicToast.showError(ctx, "Camera access failed.");
             }
