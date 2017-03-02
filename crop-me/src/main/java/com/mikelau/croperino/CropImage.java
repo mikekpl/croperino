@@ -122,7 +122,7 @@ public class CropImage extends MonitoredActivity {
 
             mImagePath = extras.getString(IMAGE_PATH);
 
-            mSaveUri = getImageUri(mImagePath);
+            mSaveUri = Uri.fromFile(new File(CroperinoConfig.getsRawDirectory()+CroperinoConfig.getsImageName()));
             mBitmap = getBitmap(mImagePath);
 
             if (extras.containsKey(ASPECT_X) && extras.get(ASPECT_X) instanceof Integer) {
