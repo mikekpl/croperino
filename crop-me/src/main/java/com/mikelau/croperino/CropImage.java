@@ -91,6 +91,7 @@ public class CropImage extends MonitoredActivity {
 
     private boolean mScaleUp = true;
     private final BitmapManager.ThreadSet mDecodingThreads = new BitmapManager.ThreadSet();
+    private int mScreenOrientation;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -147,7 +148,7 @@ public class CropImage extends MonitoredActivity {
         }
 
         assert extras != null;
-        if(extras.getInt("color") != 0) {
+        if (extras.getInt("color") != 0) {
             findViewById(R.id.discard).setBackgroundColor(extras.getInt("color"));
             findViewById(R.id.save).setBackgroundColor(extras.getInt("color"));
             findViewById(R.id.rotateLeft).setBackgroundColor(extras.getInt("color"));
@@ -155,8 +156,13 @@ public class CropImage extends MonitoredActivity {
             findViewById(R.id.rl_main).setBackgroundColor(extras.getInt("color"));
         }
 
-        if(extras.getInt("bgColor") != 0) {
+        if (extras.getInt("bgColor") != 0) {
             mImageView.setBackgroundColor(extras.getInt("bgColor"));
+        }
+
+        mScreenOrientation = extras.getInt("orientation");
+        if (mScreenOrientation != -1) {
+            setRequestedOrientation(mScreenOrientation);
         }
 
         // Make UI fullscreen.

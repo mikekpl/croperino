@@ -3,7 +3,10 @@ Croperino
 
 Simple image cropping tool derived from [Crop Image](https://github.com/biokys/cropimage)
 
-Credits to [Alexey](https://github.com/tpom6oh) for fixing some issues related to API 23+ (Since I do not have 23+ devices yet)
+Credits:
+* Credits to [Alexey](https://github.com/tpom6oh) for fixing some issues related to API 23+ (Since I do not have 23+ devices yet)
+* Credits to [Ashutosh Chauhan](https://github.com/ashutoshchauhan13) for adding screen orientation feature
+* Credits to [Emerson Rodrigues](https://github.com/emersonrsilva) for fixing overriding of images when cropped
 
 Features:
 * Camera and/or gallery calls.
@@ -24,7 +27,7 @@ Gradle
 ```
 
 ```
-	compile 'com.github.ekimual:croperino:1.1.1'
+	compile 'com.github.ekimual:croperino:1.1.2'
 ```
 
 Make sure to have this in your manifest
@@ -59,6 +62,27 @@ Sample Usage
 	
 ```
 
+Orientation List:
+
+```
+SCREEN_ORIENTATION_BEHIND
+SCREEN_ORIENTATION_FULL_SENSOR
+SCREEN_ORIENTATION_FULL_USER
+SCREEN_ORIENTATION_LANDSCAPE
+SCREEN_ORIENTATION_LOCKED
+SCREEN_ORIENTATION_NOSENSOR
+SCREEN_ORIENTATION_PORTRAIT
+SCREEN_ORIENTATION_REVERSE_LANDSCAPE
+SCREEN_ORIENTATION_REVERSE_PORTRAIT
+SCREEN_ORIENTATION_SENSOR
+SCREEN_ORIENTATION_SENSOR_LANDSCAPE
+SCREEN_ORIENTATION_SENSOR_PORTRAIT
+SCREEN_ORIENTATION_UNSPECIFIED
+SCREEN_ORIENTATION_USER
+SCREEN_ORIENTATION_USER_LANDSCAPE
+SCREEN_ORIENTATION_USER_PORTRAIT
+```
+
 onActivityResult
 
 ```
@@ -70,13 +94,13 @@ onActivityResult
             case CroperinoConfig.REQUEST_TAKE_PHOTO:
                 if (resultCode == Activity.RESULT_OK) {
                     /* Parameters of runCropImage = File, Activity Context, Image is Scalable or Not, Aspect Ratio X, Aspect Ratio Y, Button Bar Color, Background Color */
-                    Croperino.runCropImage(CroperinoFileUtil.getmFileTemp(), MainActivity.this, true, 1, 1, 0, 0);
+                    Croperino.runCropImage(CroperinoFileUtil.getmFileTemp(), MainActivity.this, true, 1, 1, 0, 0, Croperino.ScreenOrientation.SCREEN_ORIENTATION_LANDSCAPE);
                 }
                 break;
             case CroperinoConfig.REQUEST_PICK_FILE:
                 if (resultCode == Activity.RESULT_OK) {
                     CroperinoFileUtil.newGalleryFile(data, MainActivity.this);
-                    Croperino.runCropImage(CroperinoFileUtil.getmFileTemp(), MainActivity.this, true, 1, 1, 0, 0);
+                    Croperino.runCropImage(CroperinoFileUtil.getmFileTemp(), MainActivity.this, true, 1, 1, 0, 0, Croperino.ScreenOrientation.SCREEN_ORIENTATION_LANDSCAPE);
                 }
                 break;
             case CroperinoConfig.REQUEST_CROP_PHOTO:

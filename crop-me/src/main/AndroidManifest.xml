@@ -13,7 +13,7 @@
             android:name=".CropImage"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" />
+            />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
