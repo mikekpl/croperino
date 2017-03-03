@@ -20,37 +20,7 @@ import java.io.IOException;
  */
 public class Croperino {
 
-    public enum ScreenOrientation {
-
-        SCREEN_ORIENTATION_BEHIND(3),
-        SCREEN_ORIENTATION_FULL_SENSOR(10),
-        SCREEN_ORIENTATION_FULL_USER(13),
-        SCREEN_ORIENTATION_LANDSCAPE(0),
-        SCREEN_ORIENTATION_LOCKED(14),
-        SCREEN_ORIENTATION_NOSENSOR(5),
-        SCREEN_ORIENTATION_PORTRAIT(1),
-        SCREEN_ORIENTATION_REVERSE_LANDSCAPE(8),
-        SCREEN_ORIENTATION_REVERSE_PORTRAIT(9),
-        SCREEN_ORIENTATION_SENSOR(4),
-        SCREEN_ORIENTATION_SENSOR_LANDSCAPE(6),
-        SCREEN_ORIENTATION_SENSOR_PORTRAIT(7),
-        SCREEN_ORIENTATION_UNSPECIFIED(-1),
-        SCREEN_ORIENTATION_USER(2),
-        SCREEN_ORIENTATION_USER_LANDSCAPE(11),
-        SCREEN_ORIENTATION_USER_PORTRAIT(12);
-
-        private final int value;
-
-        ScreenOrientation(int value) {
-            this.value = value;
-        }
-
-        public int getValue() {
-            return value;
-        }
-    }
-
-    public static void runCropImage(File file, Activity ctx, boolean isScalable, int aspectX, int aspectY, int color, int bgColor, ScreenOrientation screenOrientation) {
+    public static void runCropImage(File file, Activity ctx, boolean isScalable, int aspectX, int aspectY, int color, int bgColor) {
         Intent intent = new Intent(ctx, CropImage.class);
         intent.putExtra(CropImage.IMAGE_PATH, file.getPath());
         intent.putExtra(CropImage.SCALE, isScalable);
@@ -58,7 +28,6 @@ public class Croperino {
         intent.putExtra(CropImage.ASPECT_Y, aspectY);
         intent.putExtra("color", color);
         intent.putExtra("bgColor", bgColor);
-        intent.putExtra("orientation", screenOrientation.getValue());
         ctx.startActivityForResult(intent, CroperinoConfig.REQUEST_CROP_PHOTO);
     }
 

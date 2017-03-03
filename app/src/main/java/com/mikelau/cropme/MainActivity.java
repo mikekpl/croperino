@@ -58,13 +58,13 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             case CroperinoConfig.REQUEST_TAKE_PHOTO:
                 if (resultCode == Activity.RESULT_OK) {
-                    Croperino.runCropImage(CroperinoFileUtil.getmFileTemp(), MainActivity.this, true, 1, 1, 0, 0, Croperino.ScreenOrientation.SCREEN_ORIENTATION_PORTRAIT);
+                    Croperino.runCropImage(CroperinoFileUtil.getmFileTemp(), MainActivity.this, true, 1, 1, 0, 0);
                 }
                 break;
             case CroperinoConfig.REQUEST_PICK_FILE:
                 if (resultCode == Activity.RESULT_OK) {
                     CroperinoFileUtil.newGalleryFile(data, MainActivity.this);
-                    Croperino.runCropImage(CroperinoFileUtil.getmFileTemp(), MainActivity.this, true, 1, 1, 0, 0, Croperino.ScreenOrientation.SCREEN_ORIENTATION_PORTRAIT);
+                    Croperino.runCropImage(CroperinoFileUtil.getmFileTemp(), MainActivity.this, true, 1, 1, 0, 0);
                 }
                 break;
             case CroperinoConfig.REQUEST_CROP_PHOTO:

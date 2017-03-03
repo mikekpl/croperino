@@ -20,8 +20,6 @@ package com.mikelau.croperino;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -93,7 +91,6 @@ public class CropImage extends MonitoredActivity {
 
     private boolean mScaleUp = true;
     private final BitmapManager.ThreadSet mDecodingThreads = new BitmapManager.ThreadSet();
-    private int mScreenOrientation;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -125,7 +122,7 @@ public class CropImage extends MonitoredActivity {
 
             mImagePath = extras.getString(IMAGE_PATH);
 
-            mSaveUri = Uri.fromFile(new File(CroperinoConfig.getsRawDirectory()+CroperinoConfig.getsImageName()));
+            mSaveUri = getImageUri(mImagePath);
             mBitmap = getBitmap(mImagePath);
 
             if (extras.containsKey(ASPECT_X) && extras.get(ASPECT_X) instanceof Integer) {
@@ -160,11 +157,6 @@ public class CropImage extends MonitoredActivity {
 
         if (extras.getInt("bgColor") != 0) {
             mImageView.setBackgroundColor(extras.getInt("bgColor"));
-        }
-
-        mScreenOrientation = extras.getInt("orientation");
-        if (mScreenOrientation != -1) {
-            setRequestedOrientation(mScreenOrientation);
         }
 
         // Make UI fullscreen.

@@ -15,7 +15,10 @@ import android.support.v4.app.ActivityCompat;
 import com.mikelau.magictoast.MagicToast;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.channels.FileChannel;
 
 /**
  * Created by Mike on 9/15/2016.
@@ -64,13 +67,38 @@ public class CroperinoFileUtil {
 
     public static File newGalleryFile(Intent data, Context ctx) {
         try {
-            mFileTemp = new File(CroperinoFileUtil.getPath(ctx, data.getData()));
+            mFileTemp = new File(CroperinoConfig.getsRawDirectory() + CroperinoConfig.getsImageName());
+            copyFile(new File(CroperinoFileUtil.getPath(ctx, data.getData())), mFileTemp);
             return mFileTemp;
         } catch (Exception e) {
-            MagicToast.showError(ctx, "Gallery is empty or access is prohibited by device.");
+            if(e instanceof  IOException) {
+                mFileTemp = new File(CroperinoFileUtil.getPath(ctx, data.getData()));
+            } else {
+                MagicToast.showError(ctx, "Gallery is empty or access is prohibited by device.");
+            }
             return mFileTemp;
         }
 
+    }
+
+    private static void copyFile(File sourceFile, File destFile) throws IOException {
+        if (!sourceFile.exists()) {
+            return;
+        }
+
+        FileChannel source = null;
+        FileChannel destination = null;
+        source = new FileInputStream(sourceFile).getChannel();
+        destination = new FileOutputStream(destFile).getChannel();
+        if (destination != null && source != null) {
+            destination.transferFrom(source, 0, source.size());
+        }
+        if (source != null) {
+            source.close();
+        }
+        if (destination != null) {
+            destination.close();
+        }
     }
 
     public static Boolean verifyStoragePermissions(Activity activity) {
