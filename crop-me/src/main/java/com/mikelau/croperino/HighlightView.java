@@ -421,13 +421,13 @@ public class HighlightView {
         mOutlinePaint.setStyle(Paint.Style.STROKE);
         mOutlinePaint.setAntiAlias(true);
 
-        mMode = ModifyMode.None;
+        mMode = ModifyMode.Grow;
         init();
     }
 
-    enum ModifyMode {None, Move, Grow}
+    enum ModifyMode {Move, Grow}
 
-    private ModifyMode mMode = ModifyMode.None;
+    private ModifyMode mMode = ModifyMode.Grow;
 
     Rect mDrawRect;  // in screen space
     private RectF mImageRect;  // in image space

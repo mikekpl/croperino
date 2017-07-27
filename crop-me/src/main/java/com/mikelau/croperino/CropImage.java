@@ -485,24 +485,7 @@ public class CropImage extends MonitoredActivity {
             int height = mBitmap.getHeight();
 
             Rect imageRect = new Rect(0, 0, width, height);
-            int cropWidth = Math.min(width, height) * 4 / 5;
-            int cropHeight = cropWidth;
-
-            if (mAspectX != 0 && mAspectY != 0) {
-
-                if (mAspectX > mAspectY) {
-
-                    cropHeight = cropWidth * mAspectY / mAspectX;
-                } else {
-
-                    cropWidth = cropHeight * mAspectX / mAspectY;
-                }
-            }
-
-            int x = (width - cropWidth) / 2;
-            int y = (height - cropHeight) / 2;
-
-            RectF cropRect = new RectF(x, y, x + cropWidth, y + cropHeight);
+            RectF cropRect = new RectF(0, 0, imageRect.width(), imageRect.height());
             hv.setup(mImageMatrix, imageRect, cropRect, mCircleCrop,
                     mAspectX != 0 && mAspectY != 0);
 
