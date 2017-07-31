@@ -12,13 +12,14 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 
-import com.mikelau.magictoast.MagicToast;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
+
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 
 /**
  * Created by Mike on 9/15/2016.
@@ -65,7 +66,7 @@ public class CroperinoFileUtil {
         return mFileTemp;
     }
 
-    public static File newGalleryFile(Intent data, Context ctx) {
+    public static File newGalleryFile(Intent data, Activity ctx) {
         try {
             mFileTemp = new File(CroperinoConfig.getsRawDirectory() + CroperinoConfig.getsImageName());
             copyFile(new File(CroperinoFileUtil.getPath(ctx, data.getData())), mFileTemp);
@@ -74,7 +75,7 @@ public class CroperinoFileUtil {
             if(e instanceof  IOException) {
                 mFileTemp = new File(CroperinoFileUtil.getPath(ctx, data.getData()));
             } else {
-                MagicToast.showError(ctx, "Gallery is empty or access is prohibited by device.");
+                Crouton.makeText(ctx, "Gallery is empty or access is prohibited by device", Style.ALERT).show();
             }
             return mFileTemp;
         }

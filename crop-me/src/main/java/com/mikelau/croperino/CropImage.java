@@ -42,14 +42,15 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.mikelau.magictoast.MagicToast;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.concurrent.CountDownLatch;
+
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 
 public class CropImage extends MonitoredActivity {
 
@@ -384,7 +385,7 @@ public class CropImage extends MonitoredActivity {
 
                 runOnUiThread(new Runnable() {
                     public void run() {
-                        MagicToast.showError(CropImage.this, "Cannot access file due to app storage encryption, Please use camera or other apps to open gallery.");
+                        Crouton.makeText(CropImage.this, "Cannot access file due to app storage encryption, Please use camera or other apps to open gallery", Style.ALERT).show();
                     }
                 });
 
@@ -404,7 +405,7 @@ public class CropImage extends MonitoredActivity {
         } else {
             runOnUiThread(new Runnable() {
                 public void run() {
-                    MagicToast.showError(CropImage.this, "Image URL does not exist please try again.");
+                    Crouton.makeText(CropImage.this, "Image URL does not exist please try again", Style.ALERT).show();
                 }
             });
         }
@@ -559,7 +560,7 @@ public class CropImage extends MonitoredActivity {
                     }
 
                     if (mNumFaces > 1) {
-                        MagicToast.showInfo(CropImage.this, "Multi face crop help");
+                        Crouton.makeText(CropImage.this, "Multi face crop help", Style.INFO).show();
                     }
                 }
             });
@@ -576,22 +577,18 @@ public class CropImage extends MonitoredActivity {
     public static void showStorageToast(Activity activity, int remaining) {
         String noStorageText = null;
         if (remaining == NO_STORAGE_ERROR) {
-
             String state = Environment.getExternalStorageState();
             if (state.equals(Environment.MEDIA_CHECKING)) {
-
                 noStorageText = activity.getString(R.string.preparing_card);
             } else {
-
                 noStorageText = activity.getString(R.string.no_storage_card);
             }
         } else if (remaining < 1) {
-
             noStorageText = activity.getString(R.string.not_enough_space);
         }
 
         if (noStorageText != null) {
-            MagicToast.showError(activity, noStorageText);
+            Crouton.makeText(activity, noStorageText, Style.ALERT).show();
         }
     }
 

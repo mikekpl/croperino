@@ -10,10 +10,11 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 
-import com.mikelau.magictoast.MagicToast;
-
 import java.io.File;
 import java.io.IOException;
+
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 
 /**
  * Created by Mike on 9/15/2016.
@@ -87,12 +88,13 @@ public class Croperino {
             intent.putExtra("return-data", true);
             ctx.startActivityForResult(intent, CroperinoConfig.REQUEST_TAKE_PHOTO);
         } catch (Exception e) {
+            Crouton.cancelAllCroutons();
             if (e instanceof ActivityNotFoundException) {
-                MagicToast.showError(ctx, "Activity not found.");
+                Crouton.makeText(ctx, "Activity not found", Style.ALERT).show();
             } else if (e instanceof IOException) {
-                MagicToast.showError(ctx, "Image file captured not found.");
+                Crouton.makeText(ctx, "Image file captured not found", Style.ALERT).show();
             } else {
-                MagicToast.showError(ctx, "Camera access failed.");
+                Crouton.makeText(ctx, "Camera access failed", Style.ALERT).show();
             }
         }
     }
