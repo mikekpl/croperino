@@ -1,7 +1,7 @@
 Croperino
 =========
 
-Simple image cropping tool derived from [Crop Image](https://github.com/biokys/cropimage)
+A simple image cropping tool derived from [Crop Image](https://github.com/biokys/cropimage)
 
 Credits:
 * Credits to [Alexey](https://github.com/tpom6oh) for fixing some issues related to API 23+ (Since I do not have 23+ devices yet)
@@ -25,7 +25,7 @@ Gradle
 ```
 
 ```
-	compile 'com.github.ekimual:croperino:1.1.3'
+	compile 'com.github.ekimual:croperino:1.1.4'
 ```
 
 Make sure to have this in your manifest
