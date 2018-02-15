@@ -1,10 +1,10 @@
 package com.mikelau.croperino;
 
-import android.support.v7.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.os.Build;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -13,15 +13,8 @@ public class CameraDialog {
 
     private static AlertDialog.Builder sBuilder;
 
-    public static void getConfirmDialog(Context mContext,
-                                        String mTitle,
-                                        String mMessage,
-                                        String mPositive,
-                                        String mNeutral,
-                                        String mNegative,
-                                        int color,
-                                        boolean mIsCancelable,
-                                        final AlertInterface.WithNeutral mTarget) {
+    public static void getConfirmDialog(Context mContext, String mTitle, String mMessage, String mPositive, String mNeutral, String mNegative,
+                                        int color, boolean mIsCancelable, final AlertInterface.WithNeutral mTarget) {
         LayoutInflater i = LayoutInflater.from(mContext);
         View v = i.inflate(R.layout.dialog_camera, null);
 
@@ -47,8 +40,8 @@ public class CameraDialog {
             }
         });
 
-        TextView tvTitle = (TextView) v.findViewById(R.id.tv_dialog_title);
-        TextView tvMessage = (TextView) v.findViewById(R.id.tv_dialog_message);
+        TextView tvTitle = v.findViewById(R.id.tv_dialog_title);
+        TextView tvMessage = v.findViewById(R.id.tv_dialog_message);
 
         tvTitle.setBackgroundColor(color);
         tvTitle.setText(mTitle);

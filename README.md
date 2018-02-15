@@ -1,10 +1,12 @@
 Croperino
 =========
 
-A simple image cropping tool derived from [Crop Image](https://github.com/biokys/cropimage)
+A simple image cropping tool for your android applications
 
-Credits:
-* Credits to [Alexey](https://github.com/tpom6oh) for fixing some issues related to API 23+ (Since I do not have 23+ devices yet)
+Version:
+* Minimum SDK Version 14
+* Target SDK Version 27
+* Gradle 3.0.1
 
 Features:
 * Camera and/or gallery calls.
@@ -13,86 +15,95 @@ Features:
 * Customizing button and background
 * Performance and compression improvements
 
-
-![device-2016-09-15-163009](https://cloud.githubusercontent.com/assets/16832215/18544278/855d9aae-7b66-11e6-8236-ba1bc89a8e44.png)
+![croperino_screenshot1](https://user-images.githubusercontent.com/16832215/36243160-2477012a-125b-11e8-9daf-3eb734e401d0.png)
 
 Gradle
 
 ```
-	repositories {
-    	maven { url "https://jitpack.io" }
-    }
+repositories {
+    maven { url "https://jitpack.io" }
+}
 ```
 
 ```
-	compile 'com.github.ekimual:croperino:1.1.4'
+compile 'com.github.ekimual:croperino:1.1.5'
 ```
 
 Make sure to have this in your manifest
 
 ```
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.CAMERA" />
+<uses-feature android:name="android.hardware.camera" />
+<uses-feature android:name="android.hardware.camera.autofocus" />
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 ```
 Sample Usage
 
 ```
-	//Initialize on every usage
-	new CroperinoConfig("IMG_" + System.currentTimeMillis() + ".jpg", "/MikeLau/Pictures", "/sdcard/MikeLau/Pictures");
-        CroperinoFileUtil.verifyStoragePermissions(MainActivity.this);
-        CroperinoFileUtil.setupDirectory(MainActivity.this);
+//Initialize on every usage
+new CroperinoConfig("IMG_" + System.currentTimeMillis() + ".jpg", "/MikeLau/Pictures", "/sdcard/MikeLau/Pictures");
+    CroperinoFileUtil.verifyStoragePermissions(MainActivity.this);
+    CroperinoFileUtil.setupDirectory(MainActivity.this);
 
-	//Prepare Chooser (Gallery or Camera)
-	Croperino.prepareChooser(MainActivity.this, "Capture photo...", ContextCompat.getColor(MainActivity.this, android.R.color.background_dark));
+//Prepare Chooser (Gallery or Camera)
+Croperino.prepareChooser(MainActivity.this, "Capture photo...", ContextCompat.getColor(MainActivity.this, android.R.color.background_dark));
 	 
-	//Prepare Camera
-	try {
-	    Croperino.prepareCamera(MainActivity.this);
-	} catch(Exception e) { 
-	    e.printStackTrace;
-	}
+//Prepare Camera
+try {
+	Croperino.prepareCamera(MainActivity.this);
+} catch(Exception e) { 
+	e.printStackTrace;
+}
 	
-	//Prepare Gallery
-	Croperino.prepareGallery(MainActivity.this);
-	
+//Prepare Gallery
+Croperino.prepareGallery(MainActivity.this);
 ```
 
 onActivityResult
 
-```
-	@Override
-    	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+- Aspect Ratio X = 1 / Y = 1 will produce fixed square view
+- Aspect Ratio X = 0 / Y = 0 will produce customizable square view width or height can be customized
+- Color and Background Color should be XML format e.g. R.color.gray, place 0 if no change is meant to colors
 
-        switch (requestCode) {
-            case CroperinoConfig.REQUEST_TAKE_PHOTO:
-                if (resultCode == Activity.RESULT_OK) {
-                    /* Parameters of runCropImage = File, Activity Context, Image is Scalable or Not, Aspect Ratio X, Aspect Ratio Y, Button Bar Color, Background Color */
-                    Croperino.runCropImage(CroperinoFileUtil.getmFileTemp(), MainActivity.this, true, 1, 1, 0, 0);
-                }
-                break;
-            case CroperinoConfig.REQUEST_PICK_FILE:
-                if (resultCode == Activity.RESULT_OK) {
-                    CroperinoFileUtil.newGalleryFile(data, MainActivity.this);
-                    Croperino.runCropImage(CroperinoFileUtil.getmFileTemp(), MainActivity.this, true, 1, 1, 0, 0);
-                }
-                break;
-            case CroperinoConfig.REQUEST_CROP_PHOTO:
-                if (resultCode == Activity.RESULT_OK) {
-                    Uri i = Uri.fromFile(CroperinoFileUtil.getmFileTemp());
-                    ivMain.setImageURI(i);
-                    //Do saving / uploading of photo method here.
-                    //The image file can always be retrieved via CroperinoFileUtil.getmFileTemp()
-                }
-                break;
-            default:
-                break;
-        }
+```
+@Override
+public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+
+    switch (requestCode) {
+        case CroperinoConfig.REQUEST_TAKE_PHOTO:
+            if (resultCode == Activity.RESULT_OK) {
+                /* Parameters of runCropImage = File, Activity Context, Image is Scalable or Not, Aspect Ratio X, Aspect Ratio Y, Button Bar Color, Background Color */
+                Croperino.runCropImage(CroperinoFileUtil.getTempFile(), MainActivity.this, true, 1, 1, R.color.gray, R.color.gray_variant);
+            }
+            break;
+        case CroperinoConfig.REQUEST_PICK_FILE:
+            if (resultCode == Activity.RESULT_OK) {
+                CroperinoFileUtil.newGalleryFile(data, MainActivity.this);
+                Croperino.runCropImage(CroperinoFileUtil.getTempFile(), MainActivity.this, true, 0, 0, R.color.gray, R.color.gray_variant);
+            }
+            break;
+        case CroperinoConfig.REQUEST_CROP_PHOTO:
+            if (resultCode == Activity.RESULT_OK) {
+                Uri i = Uri.fromFile(CroperinoFileUtil.getTempFile());
+                ivMain.setImageURI(i);
+                //Do saving / uploading of photo method here.
+                //The image file can always be retrieved via CroperinoFileUtil.getTempFile()
+            }
+            break;
+        default:
+            break;
     }
-	
+}
+```
+
+Proguard
+
+```
+-dontwarn com.mikelau.croperino.**
+-keep class com.mikelau.croperino.** { *; }
+-keep interface com.mikelau.croperino.** { *; }
 ```
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Croperino-green.svg?style=true)](https://android-arsenal.com/details/1/4374)

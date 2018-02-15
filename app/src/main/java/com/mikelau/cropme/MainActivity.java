@@ -27,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnSummon = (Button) findViewById(R.id.btn_click);
-        ivMain = (ImageView) findViewById(R.id.iv_main);
+        btnSummon = findViewById(R.id.btn_click);
+        ivMain = findViewById(R.id.iv_main);
 
         new CroperinoConfig("IMG_" + System.currentTimeMillis() + ".jpg", "/MikeLau/Pictures", "/sdcard/MikeLau/Pictures");
         CroperinoFileUtil.setupDirectory(MainActivity.this);
@@ -58,18 +58,18 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             case CroperinoConfig.REQUEST_TAKE_PHOTO:
                 if (resultCode == Activity.RESULT_OK) {
-                    Croperino.runCropImage(CroperinoFileUtil.getmFileTemp(), MainActivity.this, true, 1, 1, 0, 0);
+                    Croperino.runCropImage(CroperinoFileUtil.getTempFile(), MainActivity.this, true, 1, 1, R.color.gray, R.color.gray_variant);
                 }
                 break;
             case CroperinoConfig.REQUEST_PICK_FILE:
                 if (resultCode == Activity.RESULT_OK) {
                     CroperinoFileUtil.newGalleryFile(data, MainActivity.this);
-                    Croperino.runCropImage(CroperinoFileUtil.getmFileTemp(), MainActivity.this, true, 1, 1, 0, 0);
+                    Croperino.runCropImage(CroperinoFileUtil.getTempFile(), MainActivity.this, true, 1, 1, R.color.gray, R.color.gray_variant);
                 }
                 break;
             case CroperinoConfig.REQUEST_CROP_PHOTO:
                 if (resultCode == Activity.RESULT_OK) {
-                    Uri i = Uri.fromFile(CroperinoFileUtil.getmFileTemp());
+                    Uri i = Uri.fromFile(CroperinoFileUtil.getTempFile());
                     ivMain.setImageURI(i);
                 }
                 break;

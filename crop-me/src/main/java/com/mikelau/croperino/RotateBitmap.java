@@ -1,19 +1,3 @@
-/*
- * Copyright (C) 2009 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.mikelau.croperino;
 
 import android.graphics.Bitmap;
@@ -25,34 +9,23 @@ public class RotateBitmap {
     private int mRotation;
 
     public RotateBitmap(Bitmap bitmap) {
-
         mBitmap = bitmap;
         mRotation = 0;
     }
 
-    public RotateBitmap(Bitmap bitmap, int rotation) {
-
-        mBitmap = bitmap;
-        mRotation = rotation % 360;
-    }
-
     public void setRotation(int rotation) {
-
         mRotation = rotation;
     }
 
     public int getRotation() {
-
         return mRotation;
     }
 
     public Bitmap getBitmap() {
-
         return mBitmap;
     }
 
     public void setBitmap(Bitmap bitmap) {
-
         mBitmap = bitmap;
     }
 
@@ -73,12 +46,10 @@ public class RotateBitmap {
     }
 
     public boolean isOrientationChanged() {
-
         return (mRotation / 90) % 2 != 0;
     }
 
     public int getHeight() {
-
         if (isOrientationChanged()) {
             return mBitmap.getWidth();
         } else {
@@ -87,19 +58,10 @@ public class RotateBitmap {
     }
 
     public int getWidth() {
-
         if (isOrientationChanged()) {
             return mBitmap.getHeight();
         } else {
             return mBitmap.getWidth();
-        }
-    }
-
-    public void recycle() {
-
-        if (mBitmap != null) {
-            mBitmap.recycle();
-            mBitmap = null;
         }
     }
 }

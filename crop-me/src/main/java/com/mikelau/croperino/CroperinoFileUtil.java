@@ -21,9 +21,6 @@ import java.nio.channels.FileChannel;
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
 
-/**
- * Created by Mike on 9/15/2016.
- */
 public class CroperinoFileUtil {
 
     public static final int REQUEST_EXTERNAL_STORAGE = 1;
@@ -35,7 +32,7 @@ public class CroperinoFileUtil {
 
     public static File mFileTemp;
 
-    public static File getmFileTemp() {
+    public static File getTempFile() {
         return mFileTemp;
     }
 
@@ -87,10 +84,8 @@ public class CroperinoFileUtil {
             return;
         }
 
-        FileChannel source = null;
-        FileChannel destination = null;
-        source = new FileInputStream(sourceFile).getChannel();
-        destination = new FileOutputStream(destFile).getChannel();
+        FileChannel source = new FileInputStream(sourceFile).getChannel();
+        FileChannel destination = new FileOutputStream(destFile).getChannel();
         if (destination != null && source != null) {
             destination.transferFrom(source, 0, source.size());
         }
@@ -125,13 +120,8 @@ public class CroperinoFileUtil {
     public static Boolean verifyCameraPermissions(Activity activity) {
         if (Build.VERSION.SDK_INT >= 23) {
             int cameraPermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.CAMERA);
-
             if (cameraPermission != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(
-                        activity,
-                        new String[]{(Manifest.permission.CAMERA)},
-                        REQUEST_CAMERA
-                );
+                ActivityCompat.requestPermissions(activity, new String[]{(Manifest.permission.CAMERA)}, REQUEST_CAMERA);
                 return false;
             } else {
                 return true;

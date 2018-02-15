@@ -16,9 +16,6 @@ import java.io.IOException;
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
 
-/**
- * Created by Mike on 9/15/2016.
- */
 public class Croperino {
 
     public static void runCropImage(File file, Activity ctx, boolean isScalable, int aspectX, int aspectY, int color, int bgColor) {
@@ -33,14 +30,8 @@ public class Croperino {
     }
 
     public static void prepareChooser(final Activity ctx, String message, int color) {
-        CameraDialog.getConfirmDialog(ctx, ctx.getResources().getString(R.string.app_name),
-                message,
-                "CAMERA",
-                "GALLERY",
-                "CLOSE",
-                color,
-                true,
-                new AlertInterface.WithNeutral() {
+        CameraDialog.getConfirmDialog(ctx, ctx.getResources().getString(R.string.app_name), message, "CAMERA", "GALLERY", "CLOSE",
+                color, true, new AlertInterface.WithNeutral() {
                     @Override
                     public void PositiveMethod(final DialogInterface dialog, final int id) {
                         if (CroperinoFileUtil.verifyCameraPermissions(ctx)) {
@@ -56,9 +47,7 @@ public class Croperino {
                     }
 
                     @Override
-                    public void NegativeMethod(final DialogInterface dialog, final int id) {
-
-                    }
+                    public void NegativeMethod(final DialogInterface dialog, final int id) {}
                 });
     }
 
