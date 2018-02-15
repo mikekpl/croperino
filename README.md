@@ -1,7 +1,7 @@
 Croperino
 =========
 
-A simple image cropping tool for your android applications (v1.1.6)
+A simple image cropping tool for your android applications (v1.1.7)
 
 Supported SDK and Gradle Version:
 * Minimum SDK Version 14
@@ -26,7 +26,7 @@ repositories {
 ```
 
 ```
-compile 'com.github.ekimual:croperino:1.1.6'
+compile 'com.github.ekimual:croperino:1.1.7'
 ```
 
 Make sure to have this in your manifest
