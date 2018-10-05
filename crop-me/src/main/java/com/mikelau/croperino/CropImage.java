@@ -13,6 +13,7 @@ import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Region;
+import android.media.ExifInterface;
 import android.media.FaceDetector;
 import android.net.Uri;
 import android.os.Bundle;
@@ -166,6 +167,9 @@ public class CropImage extends MonitoredActivity {
                 mRunFaceDetection.run();
             }
         });
+
+        //fix image rotated
+        rotateImageIfNecessary();
 
         startFaceDetection();
     }
@@ -555,6 +559,25 @@ public class CropImage extends MonitoredActivity {
             return (int) remaining;
         } catch (Exception ex) {
             return CANNOT_STAT_ERROR;
+        }
+    }
+
+    private void rotateImageIfNecessary() {
+        try {
+            ExifInterface exif = new ExifInterface(mImagePath);
+            String orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
+            int orientation = orientString != null ? Integer.parseInt(orientString) :  ExifInterface.ORIENTATION_NORMAL;
+
+            int rotationAngle = 0;
+            if (orientation == ExifInterface.ORIENTATION_ROTATE_90) rotationAngle = 90;
+            if (orientation == ExifInterface.ORIENTATION_ROTATE_180) rotationAngle = 180;
+            if (orientation == ExifInterface.ORIENTATION_ROTATE_270) rotationAngle = 270;
+
+            Matrix matrix = new Matrix();
+            matrix.postRotate(rotationAngle);
+            mBitmap = Bitmap.createBitmap(mBitmap, mOutputX, mOutputY, mBitmap.getWidth(), mBitmap.getHeight(), matrix, true);
+        } catch (Exception e) {
+            Log.e(TAG, "cannot rotate file");
         }
     }
 }
