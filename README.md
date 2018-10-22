@@ -2,6 +2,10 @@
 
 A simple image cropping tool for your android applications (v1.1.8)
 
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Croperino-green.svg?style=popout-square)](https://android-arsenal.com/details/1/4374)
+[![Android Arsenal](https://img.shields.io/badge/Twitter-mike14u-blue.svg?style=popout-square)](https://www.twitter.com/mike14u)
+[![Android Arsenal](https://img.shields.io/badge/Github-mike14u-ff69b4.svg?style=popout-square)](https://github.com/mike14u)
+
 Supported SDK and Gradle Version:
 * Minimum SDK Version 14
 * Target SDK Version 28
@@ -14,11 +18,7 @@ Features:
 * Customizing button and background
 * Performance and compression improvements
 
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Croperino-green.svg?style=popout-square)](https://android-arsenal.com/details/1/4374)
-[![Android Arsenal](https://img.shields.io/badge/Twitter-mike14u-blue.svg?style=popout-square)](https://www.twitter.com/mike14u)
-[![Android Arsenal](https://img.shields.io/badge/Github-mike14u-ff69b4.svg?style=popout-square)](https://github.com/mike14u)
-
-![croperino_screenshot1](https://user-images.githubusercontent.com/16832215/36243160-2477012a-125b-11e8-9daf-3eb734e401d0.png=200x500)
+![croperino_screenshot1](https://user-images.githubusercontent.com/16832215/36243160-2477012a-125b-11e8-9daf-3eb734e401d0.png)
 
 ## Getting Started
 
@@ -123,7 +123,7 @@ Distributed under the Apache License. See ``LICENSE`` for more information.
 
 ## Contributing
 
-1. Fork it (<https://github.com/mike14u/zenith/fork>)
+1. Fork it (<https://github.com/mike14u/croperino/fork>)
 2. Create your feature branch (`git checkout -b feature/fooBar`)
 3. Commit your changes (`git commit -am 'Add some fooBar'`)
 4. Push to the branch (`git push origin feature/fooBar`)
