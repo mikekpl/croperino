@@ -1,5 +1,4 @@
-Croperino
-=========
+# Croperino
 
 A simple image cropping tool for your android applications (v1.1.8)
 
@@ -15,9 +14,17 @@ Features:
 * Customizing button and background
 * Performance and compression improvements
 
-![croperino_screenshot1](https://user-images.githubusercontent.com/16832215/36243160-2477012a-125b-11e8-9daf-3eb734e401d0.png)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Croperino-green.svg?style=popout-square)](https://android-arsenal.com/details/1/4374)
+[![Android Arsenal](https://img.shields.io/badge/Twitter-mike14u-blue.svg?style=popout-square)](https://www.twitter.com/mike14u)
+[![Android Arsenal](https://img.shields.io/badge/Github-mike14u-ff69b4.svg?style=popout-square)](https://github.com/mike14u)
 
-Gradle
+![croperino_screenshot1](https://user-images.githubusercontent.com/16832215/36243160-2477012a-125b-11e8-9daf-3eb734e401d0.png=200x500)
+
+## Getting Started
+
+Make sure to have Android Studio
+
+**Gradle**
 
 ```
 repositories {
@@ -29,7 +36,10 @@ repositories {
 compile 'com.github.mike14u:croperino:1.1.8'
 ```
 
-Make sure to have this in your manifest
+## Usage
+
+**Android Manifest**
+Make sure to have this in your Android Manifest
 
 ```
 <uses-permission android:name="android.permission.CAMERA" />
@@ -38,7 +48,8 @@ Make sure to have this in your manifest
 <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 ```
-Sample Usage
+
+**Sample Usage**
 
 ```
 //Initialize on every usage
@@ -48,19 +59,19 @@ new CroperinoConfig("IMG_" + System.currentTimeMillis() + ".jpg", "/MikeLau/Pict
 
 //Prepare Chooser (Gallery or Camera)
 Croperino.prepareChooser(MainActivity.this, "Capture photo...", ContextCompat.getColor(MainActivity.this, android.R.color.background_dark));
-	 
+
 //Prepare Camera
 try {
 	Croperino.prepareCamera(MainActivity.this);
-} catch(Exception e) { 
+} catch(Exception e) {
 	e.printStackTrace;
 }
-	
+
 //Prepare Gallery
 Croperino.prepareGallery(MainActivity.this);
 ```
 
-onActivityResult
+**onActivityResult**
 
 - Aspect Ratio X = 1 / Y = 1 will produce fixed square view
 - Aspect Ratio X = 0 / Y = 0 will produce customizable square view width or height can be customized
@@ -98,7 +109,7 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
 }
 ```
 
-Proguard
+**Proguard**
 
 ```
 -dontwarn com.mikelau.croperino.**
@@ -106,10 +117,19 @@ Proguard
 -keep interface com.mikelau.croperino.** { *; }
 ```
 
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Croperino-green.svg?style=true)](https://android-arsenal.com/details/1/4374)
+## Meta
 
-License
-=======
+Distributed under the Apache License. See ``LICENSE`` for more information.
+
+## Contributing
+
+1. Fork it (<https://github.com/mike14u/zenith/fork>)
+2. Create your feature branch (`git checkout -b feature/fooBar`)
+3. Commit your changes (`git commit -am 'Add some fooBar'`)
+4. Push to the branch (`git push origin feature/fooBar`)
+5. Create a new Pull Request
+
+## License
 
 ```
 The MIT License (MIT)
