@@ -18,7 +18,7 @@ Features:
 * Customizing button and background
 * Performance and compression improvements
 
-![croperino_screenshot1](https://user-images.githubusercontent.com/16832215/36243160-2477012a-125b-11e8-9daf-3eb734e401d0.png =200x500)
+<img src="https://user-images.githubusercontent.com/16832215/36243160-2477012a-125b-11e8-9daf-3eb734e401d0.png" width="200" height="500">
 
 ## Getting Started
 
