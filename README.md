@@ -18,7 +18,7 @@ Features:
 * Customizing button and background
 * Performance and compression improvements
 
-![croperino_screenshot1](https://user-images.githubusercontent.com/16832215/36243160-2477012a-125b-11e8-9daf-3eb734e401d0.png)
+![croperino_screenshot1](https://user-images.githubusercontent.com/16832215/36243160-2477012a-125b-11e8-9daf-3eb734e401d0.png =200x500)
 
 ## Getting Started
 
@@ -39,7 +39,6 @@ compile 'com.github.mike14u:croperino:1.1.8'
 ## Usage
 
 **Android Manifest**
-Make sure to have this in your Android Manifest
 
 ```
 <uses-permission android:name="android.permission.CAMERA" />
