@@ -1,15 +1,15 @@
 # Croperino
 
-A simple image cropping tool for your android applications (v1.1.8)
+> A simple image cropping tool for your android applications (v1.1.8)
 
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Croperino-green.svg?style=popout-square)](https://android-arsenal.com/details/1/4374)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Croperino-brightgreen.svg?style=popout-square)](https://android-arsenal.com/details/1/4374)
 [![Android Arsenal](https://img.shields.io/badge/Twitter-mike14u-blue.svg?style=popout-square)](https://www.twitter.com/mike14u)
 [![Android Arsenal](https://img.shields.io/badge/Github-mike14u-ff69b4.svg?style=popout-square)](https://github.com/mike14u)
 
 Supported SDK and Gradle Version:
 * Minimum SDK Version 14
 * Target SDK Version 28
-* Gradle 3.2.0
+* Gradle 3.2.1
 
 Features:
 * Camera and/or gallery calls.
@@ -33,7 +33,7 @@ repositories {
 ```
 
 ```
-compile 'com.github.mike14u:croperino:1.1.8'
+implementation 'com.github.mike14u:croperino:1.1.8'
 ```
 
 ## Usage
@@ -115,10 +115,6 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
 -keep class com.mikelau.croperino.** { *; }
 -keep interface com.mikelau.croperino.** { *; }
 ```
-
-## Meta
-
-Distributed under the Apache License. See ``LICENSE`` for more information.
 
 ## Contributing
 
