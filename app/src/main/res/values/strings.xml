@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Croperino</string>
+    <string name="gallery">Gallery</string>
+    <string name="camera">Camera</string>
+</resources>
